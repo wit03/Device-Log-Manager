@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
+import Card from './component/card'
 import './App.css';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      device: [
+      device:
+      {
+        type: "",
+        cpu: "",
+        ramSize: "",
+        ramType: "",
+        ramBus: "",
+        ssd: "",
+        hdd: "",
+        currentOS: "",
+        backup: "",
+        assets: ""
+      }
 
-        {
-          type: "",
-          cpu: "",
-          ramSize: "",
-          ramType: "",
-          ramBus: "",
-          ssd: "",
-          hdd: "",
-          currentOS: "",
-          backup: ""
-        }
-      ]
     }
   }
-  
+
   componentDidMount() {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: 'keyuxyDdXi793ATAU' }).base('appag3AeJrepdMxWU');
@@ -29,7 +30,7 @@ class App extends Component {
     base('Table 1').find('recP4zLkSmRTyRTBo', (err, record) => {
       if (err) { console.error(err); return; }
       this.setState({
-        device: [
+        device: 
           {
             type: record.get('Type'),
             cpu: record.get('CPU'),
@@ -39,8 +40,9 @@ class App extends Component {
             ssd: record.get('SSD'),
             hdd: record.get('HDD'),
             currentOS: record.get('Current OS'),
+            backup: "",
+            assets: record.get('assets')
           }
-        ]
       })
       console.log(this.state.device);
     });
@@ -50,7 +52,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Hello World</h1>
+        <Card 
+          type={this.state.device.type}
+          cpu={this.state.device.cpu}
+          ram={this.state.device.ramSize}
+          ssd={this.state.device.ssd}
+          assets={this.state.device.assets}
+        />
       </div>
     );
   }
