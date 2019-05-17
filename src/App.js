@@ -1,26 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      device: [
+
+        {
+          type: "",
+          cpu: "",
+          ramSize: "",
+          ramType: "",
+          ramBus: "",
+          ssd: "",
+          hdd: "",
+          currentOS: "",
+          backup: ""
+        }
+      ]
+    }
+  }
+  
+  componentDidMount() {
+    var Airtable = require('airtable');
+    var base = new Airtable({ apiKey: 'keyuxyDdXi793ATAU' }).base('appag3AeJrepdMxWU');
+
+    base('Table 1').find('recP4zLkSmRTyRTBo', (err, record) => {
+      if (err) { console.error(err); return; }
+      this.setState({
+        device: [
+          {
+            type: record.get('Type'),
+            cpu: record.get('CPU'),
+            ramSize: record.get('RAM-Size'),
+            ramType: record.get('RAM-Type'),
+            ramBus: record.get('RAM-Bus'),
+            ssd: record.get('SSD'),
+            hdd: record.get('HDD'),
+            currentOS: record.get('Current OS'),
+          }
+        ]
+      })
+      console.log(this.state.device);
+    });
+
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello World</h1>
+      </div>
+    );
+  }
+
 }
 
 export default App;
