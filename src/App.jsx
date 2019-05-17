@@ -40,7 +40,7 @@ class App extends Component {
             ssd: record.get('SSD'),
             hdd: record.get('HDD'),
             currentOS: record.get('Current OS'),
-            backup: "",
+            backup: record.get('Old-Backup'),
             assets: record.get('assets')
           }
       })
