@@ -57,6 +57,7 @@ class App extends Component {
           cpu={this.state.device.cpu}
           ram={this.state.device.ramSize}
           ssd={this.state.device.ssd}
+          hdd={this.state.device.hdd}
           assets={this.state.device.assets}
         />
       </div>

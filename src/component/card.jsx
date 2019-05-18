@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
     card: {
         maxWidth: 345,
+        borderRadius: 20,
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         padding: 20
     },
     media: {
@@ -49,13 +51,13 @@ function MediaCard(props) {
                             RAM: {props.ram}
                         </Typography>
                         <Typography component="p">
-                            HD: {props.ssd} 
+                            HD: {props.ssd} + {props.hdd}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
                     <Button size="small" color="primary">
-                        Upgrade
+                        Upgrade History
                     </Button>
                     <Button size="small" color="primary">
                         Backup History
