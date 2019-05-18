@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import queryString from 'querystring'
 import Card from './component/card'
 import './App.css';
 
@@ -26,15 +25,25 @@ class App extends Component {
     }
   }
 
+  getParams = (location) => {
+    const searchParams = new URLSearchParams(location.search);
+    console.log(location.search)
+    return {
+      query: searchParams.get('id') || '',
+    };
+  }
+ 
 
   componentDidMount() {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: 'keyuxyDdXi793ATAU' }).base('appag3AeJrepdMxWU');
-    console.log(window.location.search)
-    const value = queryString.parse(window.location.search.toString())
-    console.log(value.id);
     
-    base('Table 1').find("recP4zLkSmRTyRTBo", (err, record) => {
+    
+
+    const params = this.getParams(window.location);
+    console.log(params)
+    
+    base('Table 1').find(params.query, (err, record) => {
       if (err) { console.error(err); return; }
       this.setState({
         device: 
