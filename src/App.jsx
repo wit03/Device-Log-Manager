@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       device:
       {
+        id: "",
         type: "",
         cpu: "",
         ramSize: "",
@@ -19,6 +20,7 @@ class App extends Component {
         backup: "",
         assets: ""
       }
+
 
     }
   }
@@ -44,6 +46,7 @@ class App extends Component {
             assets: record.get('assets')
           }
       })
+      console.log(this.props.location)
       console.log(this.state.device);
     });
 
