@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'querystring'
 import Card from './component/card'
 import './App.css';
 
@@ -25,11 +26,15 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: 'keyuxyDdXi793ATAU' }).base('appag3AeJrepdMxWU');
-
-    base('Table 1').find('recP4zLkSmRTyRTBo', (err, record) => {
+    console.log(window.location.search)
+    const value = queryString.parse(window.location.search.toString())
+    console.log(value.id);
+    
+    base('Table 1').find("recP4zLkSmRTyRTBo", (err, record) => {
       if (err) { console.error(err); return; }
       this.setState({
         device: 
@@ -46,24 +51,24 @@ class App extends Component {
             assets: record.get('assets')
           }
       })
-      console.log(this.props.location)
       console.log(this.state.device);
+      
     });
 
   }
 
   render() {
     return (
-      <div className="App">
-        <Card 
+        <div className="App">
+          <Card 
           type={this.state.device.type}
           cpu={this.state.device.cpu}
           ram={this.state.device.ramSize}
           ssd={this.state.device.ssd}
           hdd={this.state.device.hdd}
           assets={this.state.device.assets}
-        />
-      </div>
+          />
+        </div>
     );
   }
 

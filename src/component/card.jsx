@@ -25,6 +25,7 @@ const styles = {
 
 function MediaCard(props) {
     const { classes } = props;
+   
     return (
         <Grid
         container
