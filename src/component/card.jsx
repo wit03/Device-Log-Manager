@@ -20,6 +20,7 @@ const styles = {
     },
     media: {
         height: 300,
+        width: 300
     },
 };
 
