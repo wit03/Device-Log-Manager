@@ -6,6 +6,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      status: false,
       device:
       {
         id: "",
@@ -32,21 +33,23 @@ class App extends Component {
       query: searchParams.get('id') || '',
     };
   }
- 
+
 
   componentDidMount() {
     var Airtable = require('airtable');
     var base = new Airtable({ apiKey: 'keyuxyDdXi793ATAU' }).base('appag3AeJrepdMxWU');
-   
-    
 
-    const params = this.getParams(window.location);
+
+
+    var params = this.getParams(window.location);
     console.log(params)
-    
-    base('Table 1').find(params.query, (err, record) => {
-      if (err) { console.error(err); return; }
-      this.setState({
-        device: 
+
+    if (params.query !== "") {
+      base('Table 1').find(params.query, (err, record) => {
+        if (err) { console.error(err); return; }
+        this.setState({
+          status: true,
+          device:
           {
             type: record.get('Type'),
             cpu: record.get('CPU'),
@@ -59,27 +62,49 @@ class App extends Component {
             backup: record.get('Old-Backup'),
             assets: record.get('assets')
           }
-      })
-      console.log(this.state.device);
-      
-    });
+        })
+        console.log(this.state.device);
 
+      });
+      
+    }
+    else {
+      this.setState({
+        device:
+        {
+          type: "Please Scan QR Code first",
+          cpu: undefined,
+          ramSize: undefined,
+          ramType: undefined,
+          ramBus: undefined,
+          ssd: undefined,
+          hdd: undefined,
+          currentOS: undefined,
+          backup: undefined,
+          assets: undefined
+        }
+      })
+    }
   }
 
   render() {
-    return (
-        <div className="App">
-          <Card 
+   return (
+      <div className="App">
+        <Card
           type={this.state.device.type}
           cpu={this.state.device.cpu}
           ram={this.state.device.ramSize}
           ssd={this.state.device.ssd}
           hdd={this.state.device.hdd}
           assets={this.state.device.assets}
-          />
-        </div>
+          status={this.state.status}
+        />
+      </div>
     );
+
   }
+
+
 
 }
 

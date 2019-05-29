@@ -59,7 +59,7 @@ function MediaCard(props) {
                 </CardActionArea>
                 <CardActions>
                     <Button size="small" color="primary">
-                        Upgrade History
+                        Change Specs 
                     </Button>
                     <Button size="small" color="primary">
                         Backup History
