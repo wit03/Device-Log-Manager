@@ -70,6 +70,7 @@ class App extends Component {
     }
     else {
       this.setState({
+        status: true,
         device:
         {
           type: "Please Scan QR Code first",
